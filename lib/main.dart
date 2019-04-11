@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/animation.dart';
-
-
-import './loginAnimation.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animasi_login/loginAnimation.dart';
 
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      debugShowCheckedModeBanner: false,
+    return MaterialApp(
       title: 'Login Animation Tutorial',
       home: new LoginPage(),
     );
@@ -24,15 +21,14 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => new _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
-  var statusClick = 0;
-
+class _LoginPageState extends State<LoginPage>  with TickerProviderStateMixin{
+  var statusClick=0;
   AnimationController animationControllerButton;
 
   @override
   void initState() {
     super.initState();
-    animationControllerButton = AnimationController(duration: Duration(seconds: 3),vsync: this);
+    animationControllerButton= AnimationController(duration: Duration(seconds: 3), vsync: this);
   }
 
   @override
@@ -41,29 +37,28 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     animationControllerButton.dispose();
   }
 
-  Future<Null> _playAnimation() async {
-
+  Future<Null> _playAnimation() async{
+    await animationControllerButton.forward();
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/2.jpg'), fit: BoxFit.cover),
-        ),
+            image: DecorationImage(
+                image: AssetImage('assets/2.jpg'), fit: BoxFit.cover)),
         child: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   colors: [
                 Color.fromRGBO(162, 146, 199, 0.8),
-                Color.fromRGBO(51, 51, 63, 0.9)
+                Color.fromRGBO(51, 51, 63, 0.9),
               ],
                   begin: FractionalOffset.topCenter,
                   end: FractionalOffset.bottomCenter)),
           child: ListView(
-            padding: EdgeInsets.all(0.0),
+            padding: const EdgeInsets.all(0.0),
             children: <Widget>[
               Stack(
                 alignment: AlignmentDirectional.bottomCenter,
@@ -71,7 +66,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                   Column(
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.only(top: 290.0),
+                        padding: EdgeInsets.only(top: 270.0),
                       ),
                       Container(
                         padding: EdgeInsets.all(10.0),
@@ -101,35 +96,32 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                             ),
                             FlatButton(
                               padding:
-                                  EdgeInsets.only(top: 190.0, bottom: 20.0),
+                                  EdgeInsets.only(top: 220.0, bottom: 30.0),
                               onPressed: null,
                               child: Text(
                                 "Don't have an account? Sign Up here",
                                 style: TextStyle(
                                     fontSize: 12.0,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.w400,
                                     letterSpacing: 0.5),
                               ),
                             ),
                           ],
                         ),
-                      ),
+                      )
                     ],
                   ),
-                  statusClick == 0 ? new InkWell(
+                  statusClick==0 ?
+                  new InkWell(
                     onTap: (){
                       setState(() {
                        statusClick = 1; 
                       });
                       _playAnimation();
-                    },
-                    child: new SignIn(),
-                  )
-                  : StartAnimation(),
-
+                    },child: new SignIn(),
+                  ) : new StartAnimation(buttonController: animationControllerButton.view),
                 ],
-              ),
+              )
             ],
           ),
         ),
@@ -141,7 +133,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return new Padding(
       padding: EdgeInsets.all(60),
       child: Container(
         alignment: FractionalOffset.center,
@@ -156,7 +148,7 @@ class SignIn extends StatelessWidget {
               color: Colors.white,
               fontSize: 20.0,
               fontWeight: FontWeight.w300,
-              letterSpacing: 0.5),
+              letterSpacing: 0.3),
         ),
       ),
     );
