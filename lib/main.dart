@@ -23,12 +23,27 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage>  with TickerProviderStateMixin{
   var statusClick=0;
+
+  TextEditingController editingControllerUser;
+  TextEditingController editingControllerPass;
+
+
   AnimationController animationControllerButton;
 
   @override
   void initState() {
+
+    editingControllerUser= new TextEditingController(text: '');
+    editingControllerPass= new TextEditingController(text: '');
     super.initState();
-    animationControllerButton= AnimationController(duration: Duration(seconds: 3), vsync: this);
+    animationControllerButton= AnimationController(duration: Duration(seconds: 3), vsync: this)
+    ..addStatusListener((status){
+      if(status == AnimationStatus.dismissed){
+        setState(() {
+         statusClick = 0 ; 
+        });
+      }
+    });
   }
 
   @override
@@ -38,7 +53,10 @@ class _LoginPageState extends State<LoginPage>  with TickerProviderStateMixin{
   }
 
   Future<Null> _playAnimation() async{
-    await animationControllerButton.forward();
+    try{
+      await animationControllerButton.forward();
+      await animationControllerButton.reverse();
+    } on TickerCanceled{}
   }
 
   @override
@@ -76,6 +94,7 @@ class _LoginPageState extends State<LoginPage>  with TickerProviderStateMixin{
                               padding: EdgeInsets.all(10.0),
                             ),
                             TextField(
+                              controller: editingControllerUser,
                               decoration: InputDecoration(
                                   icon: Icon(
                                     Icons.person_outline,
@@ -87,6 +106,7 @@ class _LoginPageState extends State<LoginPage>  with TickerProviderStateMixin{
                               padding: EdgeInsets.all(10.0),
                             ),
                             TextField(
+                              controller: editingControllerPass,
                               decoration: InputDecoration(
                                   icon: Icon(
                                     Icons.lock_outline,
@@ -119,7 +139,10 @@ class _LoginPageState extends State<LoginPage>  with TickerProviderStateMixin{
                       });
                       _playAnimation();
                     },child: new SignIn(),
-                  ) : new StartAnimation(buttonController: animationControllerButton.view),
+                  ) : new StartAnimation(
+                    buttonController: animationControllerButton.view,
+                    user: editingControllerUser.text,
+                    pass: editingControllerPass.text,),
                 ],
               )
             ],
