@@ -44,6 +44,15 @@ flutter:
   assets:
    - assets/2.jpg
    - assets/2.png
+   - assets/banks.png
+   - assets/hotels.png
+   - assets/key.old.png
+   - assets/key.png
+   - assets/shopping_cart.old.png
+   - assets/shopping_cart.png
+   - assets/stores.png
+   - assets/wallet.old.png
+   - assets/wallet.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -58,6 +67,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:
+  #     - family: Flamante
+  #       - asset: assets/fonts/Flamante-Roma-Medium.ttf
+  #       - asset: assets/fonts/Flamante-Roma-MediumItalic.ttf
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

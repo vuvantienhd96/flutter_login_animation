@@ -94,6 +94,7 @@ class _LoginPageState extends State<LoginPage>  with TickerProviderStateMixin{
                               padding: EdgeInsets.all(10.0),
                             ),
                             TextField(
+                              style: new TextStyle(color: Colors.white),
                               controller: editingControllerUser,
                               decoration: InputDecoration(
                                   icon: Icon(
@@ -106,13 +107,15 @@ class _LoginPageState extends State<LoginPage>  with TickerProviderStateMixin{
                               padding: EdgeInsets.all(10.0),
                             ),
                             TextField(
+                              style: new TextStyle(color: Colors.white),
                               controller: editingControllerPass,
                               decoration: InputDecoration(
                                   icon: Icon(
                                     Icons.lock_outline,
                                     color: Colors.white,
                                   ),
-                                  hintText: 'Password'),
+                                  hintText: 'Password',
+                                  ),
                             ),
                             FlatButton(
                               padding:
